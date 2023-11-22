@@ -1,0 +1,88 @@
+﻿@model Final_Lab4_1.Models.Alumno
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Alumno</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Apellido" class="control-label"></label>
+                <input asp-for="Apellido" class="form-control" />
+                <span asp-validation-for="Apellido" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dni" class="control-label"></label>
+                <input asp-for="Dni" class="form-control" />
+                <span asp-validation-for="Dni" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefono" class="control-label"></label>
+                <input asp-for="Telefono" class="form-control" />
+                <span asp-validation-for="Telefono" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="file" id="Foto" name="Foto" accept="image/jpeg" />
+                <img name="imagen" id="imagen" src="" class="rounded-circle" style="max-width:100px" />
+                <span asp-validation-for="Foto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProfesorId" class="control-label"></label>
+                <select asp-for="ProfesorId" class ="form-control" asp-items="ViewBag.ProfesorId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CuotaId" class="control-label"></label>
+                <select asp-for="CuotaId" class ="form-control" asp-items="ViewBag.CuotaId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoriaId" class="control-label"></label>
+                <select asp-for="CategoriaId" class ="form-control" asp-items="ViewBag.CategoriaId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="LocalidadId" class="control-label"></label>
+                <select asp-for="LocalidadId" class ="form-control" asp-items="ViewBag.LocalidadId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProvinciaId" class="control-label"></label>
+                <select asp-for="ProvinciaId" class ="form-control" asp-items="ViewBag.ProvinciaId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<form asp-action="Importar" enctype="multipart/form-data">
+    <div class="form-group">
+        <label class="control-label">Seleccionar Archivo CSV para importar Clientes</label>
+        <input asp-for="Foto" type="file" id="import" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Importar" class="btn btn-primary" />
+    </div>
+
+
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="~/js/JavaScript.js"></script>

@@ -1,0 +1,105 @@
+﻿@model Final_Lab4_1.ModelVIew.AlumnosLIsta
+@*IEnumerable<Final_Lab4_1.Models.Alumno>*@
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Alumnos</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-secondary">Crear Nuevo</a>
+</p>
+<form asp-action="Index" method="get">
+    <p>
+        Alumnos: <input type="text" name="busquedaNombre" placeholder="Ingrese Nombre, Apellido o DNI" style="width:500px" />
+        Profesor:<select name="ProfesorId" asp-items="ViewBag.ProfesorId"> <option value="">Todos</option></select>
+        <input class="btn btn-danger" type="submit" value="Filtrar" />
+    </p>
+</form>
+<table class="table table-hover table-striped">
+    <thead class="thead-light">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.alumnos[0].Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.alumnos[0].Apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.alumnos[0].Dni)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.alumnos[0].Telefono)
+            </th>
+            <th>
+                Fotografia
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.alumnos[0].Profesor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.alumnos[0].cuotas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.alumnos[0].categorias)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.alumnos[0].localidades)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.alumnos[0].provincias)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.alumnos) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dni)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefono)
+            </td>
+            <td>
+                 
+                    @if (!string.IsNullOrEmpty(item.Foto))
+                    {
+                        <img src="~/images/alumnos/@item.Foto" class"rounded-circle img-fluid shadow-sm" style="max-width: 60px; height: 60px; object-fit: cover; border: 2px solid #fff;"/>
+                    }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Profesor.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cuotas.EstadoCuota)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.categorias.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.localidades.NombreLocalidades)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.provincias.NombreProvincia)
+            </td>
+            <td>
+                    <div class="btn-group">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm mr-1">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-warning btn-sm mr-1">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm ">Delete</a>
+                    </div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<partial name="_Paginador" for="@Model.paginador" >

@@ -1,0 +1,73 @@
+﻿@model Final_Lab4_1.ModelVIew.ProfesoresLista
+@*IEnumerable<Final_Lab4_1.Models.Profesor>*@
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Profesores</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-secondary">Crear Nuevo</a>
+</p>
+<form asp-action="Index" method="get">
+    <p>
+        Profesor: <input type="text" name="BusquedaNombre" placeholder="Ingrese Nombre, Apellido" style="width:500px" />
+        Turnos:<select name="TurnoId" asp-items="ViewBag.TurnoId"> <option value="">Todos</option></select>
+        <input type="submit" value="Filtrar" />
+    </p>
+</form>
+<table class="table table-hover table-striped">
+    <thead class="thead-light">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.profesores[0].Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.profesores[0].Apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.profesores[0].Foto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.profesores[0].Telefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.profesores[0].Turno)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.profesores)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apellido)
+                </td>
+                <td>    
+                @if (!string.IsNullOrEmpty(item.Foto))
+                {
+                        <img src="~/images/profesores/@item.Foto" class"rounded-circle img-fluid shadow-sm" style="max-width: 60px; height: 60px; object-fit: cover; border: 2px solid #fff;" />
+                }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Turno.TurnosClase)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm mr-1">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-warning btn-sm mr-1">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm ">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<partial name="_Paginador" for="@Model.paginador">
